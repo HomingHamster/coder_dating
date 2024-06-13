@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r(l6tgitkau!jo==#_&lux$q&)i)dsht0noac+e9kzrsmkyt4-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth_ui',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -47,6 +48,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.stackexchange',
     'crispy_forms',
     'crispy_tailwind',
+    'django_cleanup',
+    'django_htmx',
+    'widget_tweaks',
     'home',
     'users',
 ]
@@ -60,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'coder_dating.urls'
@@ -151,3 +156,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+LOGIN_REDIRECT_URL = "/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True

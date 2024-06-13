@@ -1,16 +1,17 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Div, Field, Row, HTML, BaseInput
+from crispy_forms.layout import Layout, Fieldset, Field, Row, HTML
+from django.contrib.auth.models import User
 
 from users.models import Profile, InterestedIn
 
 
 class ProfileForm(forms.ModelForm):
-    interested_in_transfem = forms.BooleanField(required=False)
-    interested_in_transmasc = forms.BooleanField(required=False)
-    interested_in_men = forms.BooleanField(required=False)
-    interested_in_women = forms.BooleanField(required=False)
-    interested_in_nonbinary = forms.BooleanField(required=False)
+    interested_in_transfem = forms.BooleanField(required=False, initial=True)
+    interested_in_transmasc = forms.BooleanField(required=False, initial=True)
+    interested_in_men = forms.BooleanField(required=False, initial=True)
+    interested_in_women = forms.BooleanField(required=False, initial=True)
+    interested_in_nonbinary = forms.BooleanField(required=False, initial=True)
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -50,8 +51,9 @@ class ProfileForm(forms.ModelForm):
                         css_class="flex flex-wrap"
                 ), wrapper_class="p-3"
             ),
-            HTML('<button type="submit">Submit</button><a class="button button-gray ms-2" '
-                 'href="{{ request.META.HTTP_REFERER }}">Cancel</a>')
+            HTML('<button type="submit">Submit</button>{% if onboarding %}<a class="button button-gray ms-2" '
+                 'href="{% url "home" %}">Skip</a>{% else %}<a class="button button-gray ms-2" '
+                 'href="{{ request.META.HTTP_REFERER }}">Cancel</a>{% endif %}')
         )
 
     class Meta:
@@ -59,7 +61,12 @@ class ProfileForm(forms.ModelForm):
         exclude = ['user']
 
     def save(self, commit=True):
-        profile = super(ProfileForm, self).save(commit=commit)
+        profile = super(ProfileForm, self).save(commit=False)
+
+        if profile.age < 18:
+            profile.love = False
+
+        profile.save()
 
         interests = InterestedIn.objects.filter(user=profile.user)
 
@@ -89,3 +96,11 @@ class ProfileForm(forms.ModelForm):
             interests.filter(interest="nb").delete()
 
         return profile
+
+
+class EmailForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ["email"]

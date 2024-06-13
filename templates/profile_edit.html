@@ -3,7 +3,11 @@
 
 {% block content %}
 
-<h1 class="mb-4">Edit your Profile</h1>
+    {% if onboarding %}
+<h1 class="mb-4">Complete Your Profile</h1>
+    {% else %}
+<h1 class="mb-4">Edit Your Profile</h1>
+    {% endif %}
 
 <div class="text-center flex flex-col items-center">
     <img id="avatar" class="w-36 h-36 rounded-full object-cover my-4" src="{{ user.profile.avatar }}" />

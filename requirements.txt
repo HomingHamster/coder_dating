@@ -2,4 +2,5 @@ Django
 pillow
 django-htmx
 django-allauth
+django-cleanup
 crispy-tailwind
