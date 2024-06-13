@@ -1,23 +1,20 @@
 from django.db import models
 
 # Create your models here.
-Person
--firstname
--bio
--friendship
--love
--work
--interested_in
--age
 
-Code
--person
+CodeSnapshop
+-user
 -code
 -language
 -date
+-repository_username
 
 Opinion
 -by
 -on
--op_type
+-opinion_type
 
+Message
+-message_text
+-date
+-user
