@@ -4,3 +4,6 @@ django-htmx
 django-allauth
 django-cleanup
 crispy-tailwind
+django-widget-tweaks
+django-allauth-ui
+requests
