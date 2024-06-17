@@ -2,19 +2,19 @@
 
 {% block content %}
 
-<h1 class="mb-8">Account Settings</h1>
+<h1 class="">Account Settings</h1>
 
-<table class="w-full text-sm text-left text-gray-500">
+<table class="">
     <tbody>
         <tr>
-            <th scope="row" class="pt-4 pb-1 text-base font-bold text-gray-900">
+            <th scope="row" class="">
                 Email address
             </th>
-            <td id="email-address" class="pt-4 pb-1 px-6">
+            <td id="email-address" class="">
                 {% if user.email %}{{ user.email }}{% else %}No Email{% endif %}
             </td>
-            <td class="pt-4 pb-1 px-6">
-                <a id="email-edit" class="cursor-pointer font-medium text-blue-600 hover:underline"
+            <td class="">
+                <a id="email-edit" class=""
                 hx-get="{% url "profile-emailchange" %}"
                 hx-target="#email-address"
                 hx-swap="innerHTML">
@@ -22,31 +22,31 @@
                 </a>
             </td>
         </tr>
-        <tr class="border-b">
-            <th scope="row" class="pb-4 font-medium text-gray-900">  
+        <tr class="">
+            <th class="">  
             </th>
-            <td class="px-6 pb-4">
+            <td class="">
                 {% if user.emailaddress_set.first.verified %}
-                <span class="text-green-500">Verified</span>{% else %}
-                <span class="text-amber-500">Not verified</span>
+                <span class="">Verified</span>{% else %}
+                <span class="">Not verified</span>
                 {% endif %}
             </td>
-            <td class="px-6 pb-4">
-                <a href="{% url "profile-emailverify" %}" class="font-medium text-blue-600 hover:underline">
+            <td class="">
+                <a href="{% url "profile-emailverify" %}" class="">
                     {% if not user.emailaddress_set.first.verified %}Send Again{% endif %}
                 </a>
             </td>
         </tr>
 
-        <tr class="border-b">
-            <th scope="row" class="py-4 text-base font-bold text-gray-900">
+        <tr class="">
+            <th class="">
                 Delete Account
             </th>
-            <td class="px-6 py-4">
+            <td class="">
                 Once deleted, account is gone. Forever.
             </td>
-            <td class="px-6 py-4">
-                <a href="{% url "profile-delete" %}" class="font-medium text-red-600 hover:underline">
+            <td class="">
+                <a href="{% url "profile-delete" %}" class="">
                     Delete
                 </a>
             </td>

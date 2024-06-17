@@ -4,16 +4,16 @@
 {% block content %}
 
     {% if onboarding %}
-<h1 class="mb-4">Complete Your Profile</h1>
+<h1 class="">Complete Your Profile</h1>
     {% else %}
-<h1 class="mb-4">Edit Your Profile</h1>
+<h1 class="">Edit Your Profile</h1>
     {% endif %}
 
-<div class="text-center flex flex-col items-center">
-    <img id="avatar" class="w-36 h-36 rounded-full object-cover my-4" src="{{ user.profile.avatar }}" />
-    <div class="text-center max-w-md">
+<div class="">
+    <img id="avatar" class="" src="{{ user.profile.avatar }}" />
+    <div class="">
         <h1 id="displayname">{{ user.profile.display_name|default:"" }}</h1>
-        <div class="text-gray-400 mb-2 -mt-3">@{{ user.username }}</div>
+        <div class="">@{{ user.username }}</div>
     </div>
 </div>
     
