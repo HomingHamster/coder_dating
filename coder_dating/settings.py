@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'home',
     'users',
+    'dating'
 ]
 
 MIDDLEWARE = [
@@ -167,3 +168,8 @@ LOGIN_REDIRECT_URL = "/"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
+
+#Temporary Geolocation Feature (to be replaced by address input and location features)
+GEOIP_PATH = BASE_DIR / 'geoip'
+GEOIP_COUNTRY = "dbip-country-lite-2024-06.mmdb"
+GEOIP_CITY = "dbip-city-lite-2024-06.mmdb"

@@ -36,16 +36,20 @@ class ProfileEditView(LoginRequiredMixin, View):
             onboarding = False
         form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
-            if form.love and form.age < 18:
-                if not form.friendship and not form.working and not form.hiring:
+            print(form.cleaned_data)
+            if form.cleaned_data['love'] and form.cleaned_data['age'] < 18:
+                if (not form.cleaned_data['friendship']
+                        and not form.cleaned_data['working']
+                        and not form.cleaned_data['hiring']
+                ):
                     messages.error(request, "We have changed looking for love to looking for friendship"
                                             "because you are under 18.")
-                    form.friendship = True
+                    form.cleaned_data['friendship'] = True
                 else:
                     messages.error(request, "We have unset love from what you are "
                                             "looking for because you are under 18.")
             form.save()
-            redirect("profile")
+            return redirect("profile")
         return render(request, "profile_edit.html", {"form": form, "onboarding": onboarding})
 
 

@@ -11,11 +11,11 @@ def create_user_profile(sender, instance, created, **kwargs):
     user = instance
     if created:
         profile = Profile(user=user, friendship=True).save()
-        InterestedIn(user=profile.user, interest="tf").save()
-        InterestedIn(user=profile.user, interest="tm").save()
-        InterestedIn(user=profile.user, interest="m").save()
-        InterestedIn(user=profile.user, interest="w").save()
-        InterestedIn(user=profile.user, interest="nb").save()
+        InterestedIn(user=user, interest="tf").save()
+        InterestedIn(user=user, interest="tm").save()
+        InterestedIn(user=user, interest="m").save()
+        InterestedIn(user=user, interest="w").save()
+        InterestedIn(user=user, interest="nb").save()
     else:
         try:
             email = EmailAddress.objects.get_primary(user)

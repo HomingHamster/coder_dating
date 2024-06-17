@@ -1,0 +1,20 @@
+{% extends "layouts/blank.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static "css/prism.css" %}" type="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="bg-white rounded-2xl md:drop-shadow-2xl shadow-black w-full p-8">
+       <pre class="select-none">
+           <code class="language-html">
+               {{ html }}
+           </code>
+       </pre>
+    </div>
+{% endblock %}
+
+{% block endbody %}
+    <script src="{% static "js/prism.js" %}"></script>
+{% endblock %}

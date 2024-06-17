@@ -7,3 +7,4 @@ crispy-tailwind
 django-widget-tweaks
 django-allauth-ui
 requests
+geoip2

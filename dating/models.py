@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
+from django.contrib.gis.db.models import PointField
 from django.db import models
-from django.utils import timezone
 
 
 class CodeSnapshot(models.Model):
@@ -12,14 +12,14 @@ class CodeSnapshot(models.Model):
 
 
 class Opinion(models.Model):
-    by = models.ForeignKey(User, on_delete=models.CASCADE)
-    on = models.ForeignKey(User, on_delete=models.CASCADE)
+    by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='opinion_by')
+    on = models.ForeignKey(User, on_delete=models.CASCADE, related_name='opinion_on')
     opinion_type = models.CharField(max_length=100)
 
 
 class Location(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    location = models.CharField(max_length=100)
+    location = PointField
     date = models.DateField(auto_now_add=True)
 
 

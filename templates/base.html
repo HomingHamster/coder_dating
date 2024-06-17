@@ -140,6 +140,7 @@
             @apply bg-amber-500
         }
     </style>
+    {% block head %}{% endblock %}
 </head>
 <body class="{% block class %}{% endblock %}">
 
@@ -220,5 +221,7 @@
 {% block layout %}
 {% endblock %}
 
+{% block endbody %}
+{% endblock %}
 </body>
 </html>
