@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.gis",
     'allauth_ui',
     'allauth',
     'allauth.account',
@@ -103,7 +104,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'spatial': {
+        "ENGINE": "django.contrib.gis.db.backends.spatialite",
+        "NAME": BASE_DIR / "geodjango.sqlite3",
+    },
 }
 
 
