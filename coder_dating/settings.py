@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-from django.core.checks import messages
+from django.contrib import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django.contrib.gis",
-    'allauth_ui',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -50,7 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.gitlab',
     'allauth.socialaccount.providers.stackexchange',
     'crispy_forms',
-    'crispy_bootstrap_5',
+    'crispy_bootstrap5',
     'django_cleanup',
     'django_htmx',
     'widget_tweaks',
@@ -161,9 +160,9 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
-CRISPY_TEMPLATE_PACK = "tailwind"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = "/"
 
