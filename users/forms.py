@@ -1,17 +1,17 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Field, Row, HTML
+from crispy_forms.layout import Layout, Fieldset, Field, Row, HTML, Div
 from django.contrib.auth.models import User
 
 from users.models import Profile, InterestedIn
 
 
 class ProfileForm(forms.ModelForm):
-    interested_in_transfem = forms.BooleanField(required=False, initial=True)
-    interested_in_transmasc = forms.BooleanField(required=False, initial=True)
-    interested_in_men = forms.BooleanField(required=False, initial=True)
-    interested_in_women = forms.BooleanField(required=False, initial=True)
-    interested_in_nonbinary = forms.BooleanField(required=False, initial=True)
+    interested_in_transfem = forms.BooleanField(required=False, initial=True, label="Transfem")
+    interested_in_transmasc = forms.BooleanField(required=False, initial=True, label="Transmasc")
+    interested_in_men = forms.BooleanField(required=False, initial=True, label="Men")
+    interested_in_women = forms.BooleanField(required=False, initial=True, label="Women")
+    interested_in_nonbinary = forms.BooleanField(required=False, initial=True, label="Non-binary")
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -19,40 +19,33 @@ class ProfileForm(forms.ModelForm):
         self.helper.label_class = 'inline-block text-gray-700 text-sm font-bold'
         self.helper.field_class = ' '
         self.helper.layout = Layout(
-            Fieldset("About you",
-                     HTML('<p class="text-gray-700 text-sm mb-1">If you do not fill these in you will only get '
-                          'matches who have also not filled them in.</p>'),
-                     Row("gender", "age", css_class="columns-2"),
-                     wrapper_class="p-3"
-                     ),
-            Fieldset(
-                'Profile Details',
-                'display_name',
-                'image',
-                'bio',
+            HTML("<h2>About you</h2>"),
+            HTML('<p class="text-secondary text-sm mb-1">If you do not fill these in you will only get '
+                 'matches who have also not filled them in.</p>'),
+            Div("gender", "age", css_class="d-flex flex-row flex-wrap gap-3"),
+            HTML("<h2>Profile Details</h2>"),
+            Div('display_name', 'image', 'bio', css_class="my-3"),
+            HTML("<h2>Interested In</h2>"),
+            HTML('<p class="text-secondary text-sm mb-1">Feel free to tick everything, but if you '
+                 'tick nothing there will be no matches.</p>'),
+            Div(
+                     "interested_in_transfem",
+                     "interested_in_transmasc",
+                     "interested_in_men",
+                     "interested_in_women",
+                     "interested_in_nonbinary",
+                     css_class="d-flex flex-row flex-wrap my-3",
             ),
-            Fieldset("Interested In",
-                     HTML('<p class="text-gray-700 text-sm mb-1">Feel free to tick everything, but if you '
-                          'tick nothing there will be no matches</p>'),
-                     Field("interested_in_transfem", wrapper_class="p-0 m-0 pe-5"),
-                     Field("interested_in_transmasc", wrapper_class="p-0 m-0 pe-5"),
-                     Field("interested_in_men", wrapper_class="p-0 m-0 pe-5"),
-                     Field("interested_in_women", wrapper_class="p-0 m-0 pe-5"),
-                     Field("interested_in_nonbinary", wrapper_class="p-0 m-0 "),
-                     css_class="flex flex-wrap"),
-            Fieldset( "Looking for",
-                HTML('<p class="text-gray-700 text-sm mb-1">You will not get any matches if you dont chose '
-                     'at least one of these.</p>'),
-                Row(
-                        Field("friendship", wrapper_class="pe-5"),
-                        Field("love", wrapper_class="pe-5"),
-                        Field("working", wrapper_class="pe-5"),
-                        "hiring",
-                        css_class="flex flex-wrap"
-                ), wrapper_class="p-3"
-            ),
-            HTML('<button type="submit">Submit</button>{% if onboarding %}<a class="button button-gray ms-2" '
-                 'href="{% url "home" %}">Skip</a>{% else %}<a class="button button-gray ms-2" '
+            HTML("<h2>Looking for</h2>"),
+            HTML('<p class="text-secondary text-sm mb-1">You will not get any matches if you dont chose '
+                 'at least one of these.</p>'),
+            Div(
+                 "friendship", "love", "working", "hiring",
+                 css_class="d-flex flex-row flex-wrap my-3",
+             ),
+            HTML('<button class="btn btn-lg btn-success" type="submit">Submit</button>'
+                 '{% if onboarding %}<a class="btn btn-secondary btn-lg ms-2" '
+                 'href="{% url "home" %}">Skip</a>{% else %}<a class="btn btn-lg btn-secondary ms-2" '
                  'href="{{ request.META.HTTP_REFERER }}">Cancel</a>{% endif %}')
         )
 
