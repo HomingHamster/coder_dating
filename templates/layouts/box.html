@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% block head %}
     <style>
-            
         #box {
             max-width:768px;
+            background-color: #000;
+        }
+        [data-bs-theme=dark] {
+            #box{
+                background-color: #1b1b1b;
+            }
         }
         #id_bio{
             height: 8em;
@@ -11,7 +16,7 @@
     </style>
 {% endblock %}
 {% block layout %}
-    <div id="box" class="bg-white shadow-lg rounded p-4 text-left m-auto mb-3 mt-4">
+    <div id="box" class="shadow-lg rounded p-4 text-left m-auto mb-3 mt-4">
     
         {% block content %} 
         {% endblock %}

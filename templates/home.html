@@ -2,11 +2,32 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism-okaidia.min.css"
+          integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        .well1 {
+            background-color: #272822;
+        }
+        
+         .second-nm {
+             margin-top: 0em !important;
+         }
+         @media only screen and (min-width: 992px) {
+             .second-nm {
+                 margin-top: -4.5em !important;
+             }
+         }
+        [data-bs-theme=light] {
+            .well1 {
+                background-color: #156741;
+            }
+         }
+    </style>
 {% endblock %}
 
 {% block layout %}
-    <div class="header w-100 m-0 p-4" style="padding-bottom: 4em !important;">
+    <div class="header w-100 m-0 p-4" style="padding-bottom: 4.5em !important;">
         <div class="container m-auto py-5 gap-3 d-flex flex-column">
             <h1 class="text-light">Welcome to Language: Where Code Meets Love</h1>
             <p class="lead text-light">Discover connections beyond the surface with Language, the ultimate dating app
@@ -21,16 +42,50 @@
             </div>
         </div>
     </div>
-    <div class="w-100 p-4" style="background-color: #aaa;">
+    <div class="section1 w-100 p-4 z-3 position-absolute">
         <div class="container">
-            <div class="rounded" style="background-color: #272822; margin-top: -4em !important; max-width: 768px;">
-                <div class="d-flex gap-2 p-2" style="border-bottom: 1px #555 solid;">
-                    <div style="height: 1em; width: 1em;" class="rounded-circle bg-info"></div>
-                    <div style="height: 1em; width: 1em;" class="rounded-circle bg-warning"></div>
-                    <div style="height: 1em; width: 1em;" class="rounded-circle bg-danger"></div>
+            <div class="row row-cols-1 row-cols-lg-2 g-4 gy-4">
+                <div class="col">
+                    <div class="card border-0 h-100">
+                        <div class="card-body p-0 rounded"
+                             style="background-color: #272822; margin-top: -4.5em !important;">
+                            <div class="d-flex gap-2 p-2" style="border-bottom: 1px #555 solid;">
+                                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-info"></div>
+                                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-warning"></div>
+                                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-danger"></div>
+                            </div>
+                            <div class="pb-1 px-1">
+                    <pre class="p-1 px-2 border-0"><code class="language-css border-0">border: 1em;
+                        
+.btn-bd-primary {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bs-green);
+    --bs-btn-border-color: var(--bs-green);
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="pb-1 px-1">
-                    <pre><code class="language-css">border: 1em;</code></pre>
+                <div class="col">
+                    <div class="card h-100 border-0">
+                        <div class="card-body text-light rounded well1 p-4 shadow-lg second-nm">
+                            <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
+                                <svg class="bi" width="1em" height="1em">
+                                    <use xlink:href="#people-circle"/>
+                                </svg>
+                            </div>
+                            <h3 class="fs-2">Featured title</h3>
+                            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with
+                                another sentence and probably just keep going until we run out of words.</p>
+                            <a href="#" class="icon-link btn btn-light">
+                                Call to action
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,6 +93,9 @@
 {% endblock %}
 
 {% block endbody %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-Q3qGP1uJL/B0sEmu57PKXjCirgPKMbg73OLRbTJ6lfHCVU5zkHqmcTI5EV2fSoPV1MHdKsCBE7m/aS6q0pPjRQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js" crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"
+            integrity="sha512-Q3qGP1uJL/B0sEmu57PKXjCirgPKMbg73OLRbTJ6lfHCVU5zkHqmcTI5EV2fSoPV1MHdKsCBE7m/aS6q0pPjRQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}
