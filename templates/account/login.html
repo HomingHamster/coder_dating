@@ -1,33 +1,31 @@
 {% extends "layouts/box.html" %}
 {% load crispy_forms_filters %}
-
 {% load i18n %}
-
 {% load account socialaccount %}
 
-{% block title %}{% trans "Signup" %}BS{% endblock %}
+{% block title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
     {% get_providers as socialaccount_providers %}
-    <h1>{% trans "Sign Up" %}</h1>
+
+    <h1 class="text-center">Log In</h1>
 
     {% if socialaccount_providers %}
         {% include "allauth/account/provider_panel.html" with process="login" %}
     {% endif %}
 
-
-    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
-    </p>
-
-    <form id="signup_form" method="post" action="{% url 'account_signup' %}">
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        <span class="float-end">Not yet a member? <a href="{% url 'account_signup' %}">Join</a></span>
         {% csrf_token %}
         {{ form | crispy }}
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
         {% endif %}
-        <div class="form-actions">
-            <button class="btn btn-lg btn-primary" type="submit">{% trans "Sign Up" %}</button>
+        <div class="form-actions pt-3">
+            <button class="btn btn-lg btn-primary pull-right" type="submit">{% trans "Sign In" %}</button>
+            <a class="btn btn-lg" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         </div>
     </form>
+
 {% endblock %}
 

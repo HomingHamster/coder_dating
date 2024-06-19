@@ -57,7 +57,12 @@
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
         }
-
+        .toast-container {
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, 0px);
+            z-index: 9999;
+        }
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -155,14 +160,19 @@
     </ul>
 </div>
 
+<div class="toast-container top-0 p-3">
 {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message | safe }}
-    </div>
+        <div id="msg-{{ forloop.counter }}" class="{{ message.tags }} toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Message</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {{ message | safe }}
+            </div>
+        </div>
 {% endfor %}
+</div>
 
 <header class="header">
 
@@ -221,5 +231,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script>
+    {% for message in messages %}
+    (function () {
+        const toastLiveExample = document.getElementById('msg-{{ forloop.counter }}');
+
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        toastBootstrap.show()
+    })();
+    {% endfor %}
+</script>
 </body>
 </html>

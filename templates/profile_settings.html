@@ -4,16 +4,16 @@
 
 <h1 class="">Account Settings</h1>
 
-<table class="">
+<table class="table mt-4">
     <tbody>
         <tr>
-            <th scope="row" class="">
+            <th scope="row" class="p-3 border-0">
                 Email address
             </th>
-            <td id="email-address" class="">
+            <td id="email-address" class="border-0 p-3">
                 {% if user.email %}{{ user.email }}{% else %}No Email{% endif %}
             </td>
-            <td class="">
+            <td class="border-0 p-3">
                 <a id="email-edit" class=""
                 hx-get="{% url "profile-emailchange" %}"
                 hx-target="#email-address"
@@ -23,29 +23,29 @@
             </td>
         </tr>
         <tr class="">
-            <th class="">  
+            <th class="px-3 pt-0 pb-3">  
             </th>
-            <td class="">
+            <td class="px-3 pt-0 pb-3">
                 {% if user.emailaddress_set.first.verified %}
-                <span class="">Verified</span>{% else %}
-                <span class="">Not verified</span>
+                <span class="text-success">Verified</span>{% else %}
+                <span class="text-warning">Not verified</span>
                 {% endif %}
             </td>
-            <td class="">
+            <td class="px-3 pt-0 pb-3">
                 <a href="{% url "profile-emailverify" %}" class="">
                     {% if not user.emailaddress_set.first.verified %}Send Again{% endif %}
                 </a>
             </td>
         </tr>
 
-        <tr class="">
-            <th class="">
+        <tr class="p-2">
+            <th class="border-0 p-3">
                 Delete Account
             </th>
-            <td class="">
+            <td class="border-0 p-3">
                 Once deleted, account is gone. Forever.
             </td>
-            <td class="">
+            <td class="border-0 p-3">
                 <a href="{% url "profile-delete" %}" class="">
                     Delete
                 </a>
