@@ -9,13 +9,15 @@
                 <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-warning"></div>
                 <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-danger"></div>
             </div>
-            <div class="pb-1 px-1">
-                <pre class="p-1 px-2 border-0" 
-  contenteditable><code class="language-html border-0">test:1px;</code></pre>
+                <small class="px-2 mt-1 text-secondary">(click to edit)</small>
+            <div class="my-3 px-2">
+                <pre contenteditable style="min-height: 100px; max-height:300px; noverflow: scroll;"><code class="language-html" style="height: 50px;">test:1px;</code></pre></div>
+            <div class="d-flex flex-wrap flex-column flex-md-row align-items-md-end p-2 gap-2 form-group text-light">
+                {{ form.language | as_crispy_field }}
+                {{ form.repository_url | as_crispy_field }}
+                <button class="btn btn-danger ms-md-2 mb-3" hx-on="click: this.closest('form').remove()">Delete</button>
             </div>
         </div>
     
-    <div class="w-100 align-right">
-        <button class="btn btn-sm btn-danger" hx-on="click: this.closest('form').remove()">Delete</button>
-    </div>
+    
 </form>
