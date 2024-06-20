@@ -1,7 +1,13 @@
-{% extends 'layouts/blank.html' %}
+{% extends 'layouts/box.html' %}
+{% load crispy_forms_filters %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism-okaidia.min.css"
+          integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{% endblock %}
 
 {% block content %}
-
 <div class="w-100 text-center">
     <img width="120px" src="{{ profile.avatar }}" />
     <div class="">
@@ -10,7 +16,17 @@
         {% if profile.info %}
         <div class="">{{ profile.info|linebreaksbr }}</div>
         {% endif %}  
+        <div hx-get="{% url "code-edit-form" %}" hx-trigger="load" class="w-100 text-left">
+            
+        </div>
     </div>
 </div>
+{% endblock %}
 
+{% block endbody %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js" crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"
+            integrity="sha512-Q3qGP1uJL/B0sEmu57PKXjCirgPKMbg73OLRbTJ6lfHCVU5zkHqmcTI5EV2fSoPV1MHdKsCBE7m/aS6q0pPjRQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}

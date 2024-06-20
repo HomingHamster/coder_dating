@@ -12,13 +12,6 @@ from django.views.generic import TemplateView
 from users.forms import ProfileForm, EmailForm
 
 
-class ProfileView(TemplateView):
-    template_name = "profile.html"
-
-    def get_context_data(self, **kwargs):
-        return {"profile": self.request.user.profile}
-
-
 class ProfileEditView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         if reverse("profile-onboarding") == request.path:

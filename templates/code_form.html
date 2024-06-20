@@ -1,0 +1,21 @@
+{% load crispy_forms_filters %}
+
+<form hx-post="{% url "code-edit-form" %}" hx-trigger="click from:#submitAll">
+    {% csrf_token %}
+        <div class="p-0 rounded"
+             style="background-color: #272822;">
+            <div class="d-flex gap-2 p-2" style="border-bottom: 1px #555 solid;">
+                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-info"></div>
+                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-warning"></div>
+                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-danger"></div>
+            </div>
+            <div class="pb-1 px-1">
+                <pre class="p-1 px-2 border-0" 
+  contenteditable><code class="language-html border-0">test:1px;</code></pre>
+            </div>
+        </div>
+    
+    <div class="w-100 align-right">
+        <button class="btn btn-sm btn-danger" hx-on="click: this.closest('form').remove()">Delete</button>
+    </div>
+</form>

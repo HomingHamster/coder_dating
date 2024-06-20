@@ -104,12 +104,11 @@ WSGI_APPLICATION = 'coder_dating.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'spatial': {
-        "ENGINE": "django.contrib.gis.db.backends.spatialite",
-        "NAME": BASE_DIR / "geodjango.sqlite3",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "HOST": "localhost",
+        "NAME": "mydb",
+        "USER": "myuser",
+        "PASSWORD": "mypass",
     },
 }
 

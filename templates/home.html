@@ -29,13 +29,11 @@
 {% block layout %}
     <div class="header w-100 m-0 p-4" style="padding-bottom: 4.5em !important;">
         <div class="container m-auto py-5 gap-3 d-flex flex-column">
-            <h1 class="text-light">Welcome to Language: Where Code Meets Love</h1>
+            <h1 class="text-light">Welcome to Language</h1>
             <p class="lead text-light">Discover connections beyond the surface with Language, the ultimate dating app
                 for tech enthusiasts! Engage with a community that speaks your language through unique code snippets and
                 robust GitHub integration. Our premium features and top-notch security ensure you can focus on what
-                matters: finding someone who truly understands your syntax. Like or dislike based on code, and let your
-                love story begin, one line at a time. Join Language today, and experience dating redefined for the
-                modern coder!</p>
+                matters: finding someone who truly understands your syntax.</p>
 
             <div class="align-self-start">
                 <a class="btn btn-lg btn-light" href="{% url "account_signup" %}?next={% url "profile-onboarding" %}">Signup</a>
@@ -46,26 +44,10 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-lg-2 g-4 gy-4">
                 <div class="col">
-                    <div class="card border-0 h-100">
-                        <div class="card-body p-0 rounded"
-                             style="background-color: #272822; margin-top: -4.5em !important;">
-                            <div class="d-flex gap-2 p-2" style="border-bottom: 1px #555 solid;">
-                                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-info"></div>
-                                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-warning"></div>
-                                <div style="height: 0.9em; width: 0.9em;" class="rounded-circle bg-danger"></div>
-                            </div>
-                            <div class="pb-1 px-1">
-                    <pre class="p-1 px-2 border-0"><code class="language-css border-0">border: 1em;
-                        
-.btn-bd-primary {
-    --bs-btn-font-weight: 600;
-    --bs-btn-color: var(--bs-white);
-    --bs-btn-bg: var(--bs-green);
-    --bs-btn-border-color: var(--bs-green);
-}</code></pre>
-                            </div>
-                        </div>
-                    </div>
+                    {% with html as code %}
+                        {% include "partials/code_window.html" %}
+                    {% endwith %}
+                    
                 </div>
                 <div class="col">
                     <div class="card h-100 border-0">
@@ -75,15 +57,36 @@
                                     <use xlink:href="#people-circle"/>
                                 </svg>
                             </div>
-                            <h3 class="fs-2">Featured title</h3>
-                            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with
-                                another sentence and probably just keep going until we run out of words.</p>
+                            <h3 class="fs-2">Where Code Meets Love</h3>
+                            <p> Like or dislike based on code, and let your
+                                love story begin, one line at a time. Join Language today, and experience dating redefined for the
+                                modern coder!</p>
+                            <div class="d-flex flex-wrap gap-3">
                             <a href="#" class="icon-link btn btn-light">
-                                Call to action
+                                Browse for Love (18+)
                                 <svg class="bi">
                                     <use xlink:href="#chevron-right"/>
                                 </svg>
                             </a>
+                            <a href="#" class="icon-link btn btn-light">
+                                Browse for Friendship
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="icon-link btn btn-light">
+                                Browse for Work
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="icon-link btn btn-light">
+                                Browse to Hire
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right"/>
+                                </svg>
+                            </a>
+                                </div>
                         </div>
                     </div>
                 </div>

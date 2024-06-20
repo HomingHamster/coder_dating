@@ -6,13 +6,21 @@
 {% endblock %}
 
 {% block content %}
-    <div class="">
-       <pre class="">
-           <code class="language-html">
-               {{ html }}
-           </code>
-       </pre>
+    <div class="float-end">
+        <img class="rounded-circle" width="120px" src="{{ profile.avatar }}" />
+        <div class="">
+            <h1>{{ profile.name }}</h1>
+            <div class="">@{{ profile.user.username }}</div>
+            {% if profile.info %}
+            <div class="">{{ profile.info|linebreaksbr }}</div>
+            {% endif %}  
+        </div>
     </div>
+    {% if location %}
+        <div id="browse" hx-get="{% url "person-partial" %}" hx-trigger="load"></div>
+    {% else %}
+        <div id="browse" hx-get="{% url "location-autocomplete" %}" hx-trigger="load"></div>
+    {% endif %}
 {% endblock %}
 
 {% block endbody %}

@@ -1,0 +1,13 @@
+{% load crispy_forms_filters %}
+
+<div id="formset" class="w-100 items-start">
+{% for form in forms %}
+    <form hx-post="{% url "code-edit-form" %}" hx-trigger="click from:#submitAll">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-sm btn-danger align-right" hx-on="click: this.nearest('form').remove()" hx-get="{% url "delete-snippet" form.instance.id %}" class="btn btn-lg btn-success">Delete</button>
+    </form>
+{% endfor %}
+</div>
+<button class="btn btn-lg btn-warning" hx-get="{% url "code-form" %}" hx-target="#formset" hx-swap="beforeend">Add Snippet</button>
+<button class="btn btn-lg btn-success" id="submitAll">Submit All</button>

@@ -1,0 +1,40 @@
+{% if user %}
+    <h1>{{ user.name }}</h1>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for code in slides %}
+                <div class="carousel-item active">
+                    {% include "partials/code_window.html" %}
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <button class='btn btn-lg btn-success' hx-get="{% url "person-partial" %}/?id={{ user.id }}&like=true"
+            hx-target="#browse"
+            hx-swap="innerHTML">
+        Like
+    </button>
+    <button class='btn btn-lg btn-danger' hx-get="{% url "person-partial" %}/?id={{ user.id }}&like=false"
+            hx-target="#browse"
+            hx-swap="innerHTML">
+        Nope
+    </button>
+{% else %}
+    <h1 class="text-muted">There are no more users, check back later.</h1>
+    
+    <p>Last Checked: {{time | date:'Y-m-d' }} at {{ time | date:'H:i:s' }}</p>
+
+    <button class='btn btn-lg btn-success' hx-get="{% url "person-partial" %}"
+            hx-target="#browse"
+            hx-swap="innerHTML">
+        Refresh
+    </button>
+{% endif %}
