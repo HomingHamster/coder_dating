@@ -2,38 +2,120 @@
 {% load crispy_forms_filters %}
 
 {% block head %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+          integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
         #box {
-            max-width:768px;
+            max-width: 768px;
             background-color: #fff;
         }
+
         [data-bs-theme=dark] {
-            #box{
+            #box {
                 background-color: #1b1b1b;
             }
         }
-        #id_bio{
+
+        #id_bio {
             height: 8em;
         }
+
+        #id_code, [id*='highlighting-'] {
+            /* Both elements need the same text and space styling so they are directly on top of each other */
+            margin: 10px;
+            padding: 10px;
+            border: 0;
+            width: calc(100% - 32px);
+            height: 150px;
+        }
+
+        #id_code, [id*='highlighting-'], [id*='highlighting-'] * {
+            /* Also add text styles to highlighting tokens */
+            font-size: 12pt;
+            font-family: monospace;
+            line-height: 15pt;
+        }
+
+        #id_code, [id*='highlighting-'] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+
+        #id_code {
+            z-index: 1;
+            resize: none;
+        }
+
+        [id*='highlighting-'] {
+            z-index: 0;
+        }
+
+        #id_code {
+            color: transparent;
+            background: transparent;
+            caret-color: white; /* Or choose your favorite color */
+        }
     </style>
+    {% block head_more %}{% endblock %}
 {% endblock %}
 
 {% block content %}
-<div class="text-center">
-    <img width="120px" src="{{ profile.avatar }}" />
-        <h1>{{ profile.name }}</h1>
-        <div class="">@{{ profile.user.username }}</div>
-        {% if profile.info %}
-        <div class="">{{ profile.info|linebreaksbr }}</div>
-        {% endif %}  
-</div>
-<div hx-get="{% url "code-edit-form" %}" hx-trigger="load" class="text-left">
-    
-</div>
+
+    <div class="text-center">
+    <img width="120px" class="rounded-circle" src="{{ profile.avatar }}"/>
+    <h1>{{ profile.name }}</h1>
+    <div class="">@{{ profile.user.username }}</div>
+    {% if profile.info %}
+        <div class="">{{ profile.info | linebreaksbr }}</div>
+    {% endif %}
+    </div>
+    <div hx-get="{% url "code-edit-form" %}" hx-trigger="load" class="text-left">
+
+    </div>
 {% endblock %}
 
 {% block endbody %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-SkmBfuA2hqjzEVpmnMt/LINrjop3GKWqsuLSSB3e7iBmYK7JuWw4ldmmxwD9mdm2IRTTi0OxSAfEGvgEi0i2Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        {#    Prism.plugins.NormalizeWhitespace.setDefaults({#}
+        {#            'remove-trailing': true,#}
+        {#            'remove-indent': true,#}
+        {#            'left-trim': true,#}
+        {#            'right-trim': true,#}
+        {#            'break-lines': 60, //max number of characters in each line before break#}
+        {# });#}
+
+        function update_language(sel, uuid) {
+            var e = sel.value;
+            $("#highlight-content-" + uuid).removeClass()
+            $("#highlight-content-" + uuid).addClass("language-" + e)
+            console.log(sel.value);
+        };
+
+        function update(text, uuid) {
+            let result_element = document.querySelector("#highlight-content-" + uuid);
+            result_element.innerHTML = text.replace(new RegExp("&", "g"), "&amp;").replace(new RegExp("<", "g"), "&lt;");
+            Prism.highlightElement(result_element);
+        }
+
+        function sync_scroll(element, uuid) {
+            /* Scroll result to scroll coords of event - sync with textarea */
+            let result_element = document.querySelector("#highlighting-" + uuid);
+            // Get and set x and y
+            result_element.scrollTop = element.scrollTop;
+            result_element.scrollLeft = element.scrollLeft;
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+            integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+            integrity="sha512-SkmBfuA2hqjzEVpmnMt/LINrjop3GKWqsuLSSB3e7iBmYK7JuWw4ldmmxwD9mdm2IRTTi0OxSAfEGvgEi0i2Kw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}

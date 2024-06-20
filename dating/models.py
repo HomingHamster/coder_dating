@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 
 languages = {
-    "markup": "Markup",
+    "markup": "HTML & Markup",
     "css": "CSS",
     "clike": "C Like",
     "javascript": "JavaScript",

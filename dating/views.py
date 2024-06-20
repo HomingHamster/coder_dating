@@ -1,3 +1,5 @@
+import uuid
+
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -24,7 +26,9 @@ def get_client_ip(request):
     #return ip
     return "208.67.222.222"
 
+
 g = GeoIP2()
+
 
 class LocationAutocomplete(LoginRequiredMixin, View):
     def get(self, request):
@@ -90,6 +94,7 @@ class PersonBrowsePartial(LoginRequiredMixin, View):
 
 class CodeView(LoginRequiredMixin, CreateView):
     form = SnippetForm
+    fields = ["code", "language", "repository_url"]
 
     def get(self, request, *args, **kwargs):
         snippets = request.user.codesnippet_set.all()
@@ -97,7 +102,18 @@ class CodeView(LoginRequiredMixin, CreateView):
         return render(request, "code_form_set.html", context={
             "profile": request.user.profile, "forms": forms})
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+    def get_queryset(self):
+        return CodeSnippet.objects.filter(user=self.request.user)
+
+
 class CodeDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = "delete_partial.html"
+
     def get_queryset(self):
         return CodeSnippet.objects.filter(user=self.request.user)
 
@@ -106,7 +122,7 @@ class CodeFormView(LoginRequiredMixin, TemplateView):
     template_name = "code_form.html"
 
     def get_context_data(self, **kwargs):
-        return {"form": SnippetForm()}
+        return {"form": SnippetForm(), "uuid": uuid.uuid4()}
 
 
 
