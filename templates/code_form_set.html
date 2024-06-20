@@ -15,8 +15,8 @@
                 <div id="div_id_code" style="position: relative; height: 150px" class="mb-3">
                     <label for="id_code"></label>
                     <textarea name="code"
-                              oninput="update(this.value, '{{ form.instance.id }}'); sync_scroll(this);"
-                              onscroll="sync_scroll(this);" class="" required id="id_code"
+                              oninput="update(this.value, '{{ form.instance.id }}'); sync_scroll(this, '{{ form.instance.id }}');"
+                              onscroll="sync_scroll(this, '{{ form.instance.id }}');" required class="id_code" id="id_code"
                               spellcheck="false"></textarea>
                     <div class="my-3 px-2">
                 <pre id="highlighting-{{ form.instance.id }}" aria-hidden="true"><code class="language-html" id="highlight-content-{{ form.instance.id }}">Enter your code...</code></pre>

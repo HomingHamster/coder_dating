@@ -95,6 +95,7 @@ class PersonBrowsePartial(LoginRequiredMixin, View):
 class CodeView(LoginRequiredMixin, CreateView):
     form = SnippetForm
     fields = ["code", "language", "repository_url"]
+    success_url = "/dating"
 
     def get(self, request, *args, **kwargs):
         snippets = request.user.codesnippet_set.all()

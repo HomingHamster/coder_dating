@@ -21,23 +21,23 @@
             height: 8em;
         }
 
-        #id_code, [id*='highlighting-'] {
+        .id_code, [id*="highlighting-"] {
             /* Both elements need the same text and space styling so they are directly on top of each other */
-            margin: 10px;
-            padding: 10px;
+            margin: 10px !important;
+            padding: 10px !important;
             border: 0;
             width: calc(100% - 32px);
             height: 150px;
         }
 
-        #id_code, [id*='highlighting-'], [id*='highlighting-'] * {
+        .id_code, [id*="highlighting-"], [id*="highlighting-"] * {
             /* Also add text styles to highlighting tokens */
-            font-size: 12pt;
-            font-family: monospace;
-            line-height: 15pt;
+            font-size: 12pt !important;
+            font-family: monospace !important;
+            line-height: 15pt !important;
         }
 
-        #id_code, [id*='highlighting-'] {
+        .id_code, [id*="highlighting-"] {
             position: absolute;
             top: 0;
             left: 0;
@@ -45,16 +45,16 @@
             white-space: pre-wrap;
         }
 
-        #id_code {
+        .id_code {
             z-index: 1;
             resize: none;
         }
 
-        [id*='highlighting-'] {
+        [id*="highlighting-"] {
             z-index: 0;
         }
 
-        #id_code {
+        .id_code {
             color: transparent;
             background: transparent;
             caret-color: white; /* Or choose your favorite color */
@@ -66,12 +66,12 @@
 {% block content %}
 
     <div class="text-center">
-    <img width="120px" class="rounded-circle" src="{{ profile.avatar }}"/>
-    <h1>{{ profile.name }}</h1>
-    <div class="">@{{ profile.user.username }}</div>
-    {% if profile.info %}
-        <div class="">{{ profile.info | linebreaksbr }}</div>
-    {% endif %}
+        <img width="120px" class="rounded-circle" src="{{ profile.avatar }}"/>
+        <h1>{{ profile.name }}</h1>
+        <div class="">@{{ profile.user.username }}</div>
+        {% if profile.info %}
+            <div class="">{{ profile.info | linebreaksbr }}</div>
+        {% endif %}
     </div>
     <div hx-get="{% url "code-edit-form" %}" hx-trigger="load" class="text-left">
 
@@ -96,6 +96,8 @@
             $("#highlight-content-" + uuid).removeClass()
             $("#highlight-content-" + uuid).addClass("language-" + e)
             console.log(sel.value);
+            let result_element = document.querySelector("#highlight-content-" + uuid);
+            Prism.highlightElement(result_element);
         };
 
         function update(text, uuid) {
