@@ -110,7 +110,7 @@ class CodeFormView(LoginRequiredMixin, TemplateView):
 
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "profile.html"
 
     def get_context_data(self, **kwargs):
