@@ -1,0 +1,64 @@
+# fields and selectors are editable, others are read only
+# % prefix are paid features
+
+
+Home
+- Sign up / Login / Swipe goto button
+
+Sign up
+- name field
+- email field
+- password field
+- age field
+# other login integrations tbd
+=> onboarding transition
+- code field
+- code language field
+
+Login
+- email field
+- password field
+# other login integrations tbd
+
+
+# Put everything past here in a sorta dashboard section
+# (appears when you press Swipe goto from Home)
+Profile
+- name
+- age
+- location
+- code field
+- code language field
+- code icon     # determined automatically
+- swipe preview
+
+Swipe preview
+- name
+- age
+- location
+- code
+- code language
+- code icon
+
+Swipe preferences
+- age range selector
+% code language selector
+
+Swipe
+- code
+- code icon
+- name
+- age
+- location
+- match button
+- do not match button
+% swipe limit per duration    # duration is per 24hrs / 12hrs / tbd
+
+Matches
+- code
+- code icon
+- name
+- age
+- location
+- messages field
+
