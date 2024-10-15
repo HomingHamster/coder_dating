@@ -7,6 +7,8 @@
 
 {% block content %}
     <div class="float-end">
+        <div class="card">
+        <div class="card-body text-center">
         <img class="rounded-circle" width="120px" src="{{ profile.avatar }}" />
         <div class="">
             <h1>{{ profile.name }}</h1>
@@ -14,8 +16,10 @@
             {% if profile.info %}
             <div class="">{{ profile.info|linebreaksbr }}</div>
             {% endif %}  
+        </div></div>
         </div>
     </div>
+    <div class=""
     {% if location %}
         <div id="browse" hx-get="{% url "person-partial" %}" hx-trigger="load"></div>
     {% else %}

@@ -3,6 +3,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.templatetags.static import static
 
+from coder_dating import settings
+
+genders = settings.genders
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -13,12 +16,7 @@ class Profile(models.Model):
     love = models.BooleanField(default=False, verbose_name="Love (18+)")
     working = models.BooleanField(default=False)
     hiring = models.BooleanField(default=False)
-    gender = models.CharField(max_length=2, blank=True, null=True,
-                              choices=[('tw', 'Transfem'),
-                                       ('tm', 'Transmasc'),
-                                       ('m', 'Man'),
-                                       ('w', 'Woman'),
-                                       ('nb', 'Non-Binary')])
+    gender = models.CharField(max_length=2, blank=True, null=True, choices=genders)
     age = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(120), MinValueValidator(0)])
 
     def __str__(self):
@@ -41,14 +39,11 @@ class Profile(models.Model):
 
 class InterestedIn(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    interest = models.CharField(max_length=2, choices=[('tw', 'Transfem'),
-                                                       ('tm', 'Transmasc'),
-                                                       ('m', 'Men'),
-                                                       ('w', 'Women'),
-                                                       ('nb', 'Non-Binary')])
+    role = models.CharField(max_length=1, choices=[("f", "Friendship"), ("l", "Love")])
+    interest = models.CharField(max_length=2, choices=genders)
 
     class Meta:
-        unique_together = (('user', 'interest'),)
+        unique_together = (('user', 'interest', "role"),)
 
     def __str__(self):
-        return f"{self.user.profile.name} is interested in {self.interest}"
+        return f"{self.user.profile.name} is interested in {self.interest} for {self.role}"

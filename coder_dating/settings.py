@@ -106,9 +106,10 @@ DATABASES = {
     'default': {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
         "HOST": "localhost",
-        "NAME": "mydb",
-        "USER": "myuser",
-        "PASSWORD": "mypass",
+        "PORT": 5433,
+        "NAME": "geodjango",
+        "USER": "geodjango",
+        "PASSWORD": "#mypass5432#0",
     },
 }
 
@@ -171,8 +172,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 #Temporary Geolocation Feature (to be replaced by address input and location features)
 GEOIP_PATH = BASE_DIR / 'geoip'
-GEOIP_COUNTRY = "dbip-country-lite-2024-06.mmdb"
-GEOIP_CITY = "dbip-city-lite-2024-06.mmdb"
+GEOIP_COUNTRY = "dbip-country-lite-2024-10.mmdb"
+GEOIP_CITY = "dbip-city-lite-2024-10.mmdb"
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -181,3 +182,10 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+genders = [('tw', 'Transfem'),
+           ('tm', 'Transmasc'),
+           ('m', 'Man'),
+           ('w', 'Woman'),
+           ('nb', 'Non-Binary'),
+           ('o', 'Other')]

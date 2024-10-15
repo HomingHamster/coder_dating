@@ -1,12 +1,13 @@
 import uuid
 
 import requests
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views import View
@@ -112,18 +113,19 @@ class CodeView(LoginRequiredMixin, CreateView):
         return CodeSnippet.objects.filter(user=self.request.user)
 
 
-class CodeDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = "delete_partial.html"
+class CodeDeleteView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        get_object_or_404(CodeSnippet.objects.filter(user=self.request.user), id=kwargs.get('pk', None)).delete()
+        messages.success(self.request, "Snippet deleted")
+        return HttpResponse()
 
-    def get_queryset(self):
-        return CodeSnippet.objects.filter(user=self.request.user)
 
 
 class CodeFormView(LoginRequiredMixin, TemplateView):
     template_name = "code_form.html"
 
     def get_context_data(self, **kwargs):
-        return {"form": SnippetForm(), "uuid": uuid.uuid4()}
+        return {"form": SnippetForm(), "uuid": uuid.uuid4(), "exists": False}
 
 
 
