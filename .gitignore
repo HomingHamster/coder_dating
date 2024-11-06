@@ -4,3 +4,5 @@ __pycache__/
 db.sqlite3
 geoip/dbip-city-lite-2024-10.mmdb
 geoip/dbip-country-lite-2024-10.mmdb
+geoip/dbip-city-lite-2024-06.mmdb
+geoip/dbip-country-lite-2024-06.mmdb
