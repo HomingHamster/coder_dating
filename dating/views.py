@@ -9,9 +9,10 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.http import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.utils import timezone
 from django.views import View
-from django.views.generic import CreateView, ListView, TemplateView, DetailView, DeleteView
+from django.views.generic import CreateView, ListView, TemplateView, DetailView, DeleteView, UpdateView
 from django.contrib.gis.geoip2 import GeoIP2
 
 from dating.forms import LocationForm, SnippetForm
@@ -93,24 +94,12 @@ class PersonBrowsePartial(LoginRequiredMixin, View):
 #         return render(request, "code_form_set.html", context={"profile": request.user.profile, "form": form})
 
 
-class CodeView(LoginRequiredMixin, CreateView):
-    form = SnippetForm
-    fields = ["code", "language", "repository_url"]
-    success_url = "/dating"
-
+class CodeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        snippets = request.user.codesnippet_set.all()
-        forms = [SnippetForm(instance=x) for x in snippets]
+        snippets = CodeSnippet.objects.filter(user=request.user)
+        forms = [SnippetForm(instance__in=x, uid=x.uid) for x in snippets]
         return render(request, "code_form_set.html", context={
             "profile": request.user.profile, "forms": forms})
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.save()
-        return super().form_valid(form)
-
-    def get_queryset(self):
-        return CodeSnippet.objects.filter(user=self.request.user)
 
 
 class CodeDeleteView(LoginRequiredMixin, View):
@@ -121,11 +110,41 @@ class CodeDeleteView(LoginRequiredMixin, View):
 
 
 
-class CodeFormView(LoginRequiredMixin, TemplateView):
+class CodeFormView(LoginRequiredMixin, CreateView):
     template_name = "code_form.html"
+    form = SnippetForm
+    fields = ["code", "language", "repository_url"]
+    model = CodeSnippet
 
     def get_context_data(self, **kwargs):
-        return {"form": SnippetForm(), "uuid": uuid.uuid4(), "exists": False}
+        uid=uuid.uuid4()
+        return {"form": SnippetForm(uid=uid), "uuid": uid, "exists": False}
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        print(form.cleaned_data)
+        form.save()
+        return super().form_valid(form)
+
+
+class CodeFormUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "code_form.html"
+    form = SnippetForm
+    fields = ["code", "language", "repository_url"]
+
+    def get_queryset(self):
+        return CodeSnippet.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        self.redirect_url = reverse("code_form_update", uuid)
+        uid=self.queryset.objects.filter(user=self.request.user, uid=uuid).first().uid
+        return {"form": SnippetForm(uid=uid), "uuid": uid, "exists": False}
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        print(form.cleaned_data)
+        form.save()
+        return super().form_valid(form)
 
 
 

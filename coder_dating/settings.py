@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r(l6tgitkau!jo==#_&lux$q&)i)dsht0noac+e9kzrsmkyt4-'
+SECRET_KEY = 'django-insecure-r(l6x$q&)i)dsht0noac+e9kzrsmkyt4-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -109,7 +109,7 @@ DATABASES = {
         "PORT": 5433,
         "NAME": "geodjango",
         "USER": "geodjango",
-        "PASSWORD": "#mypass5432#0",
+        "PASSWORD": "",
     },
 }
 
